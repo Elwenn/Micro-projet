@@ -15,7 +15,7 @@ void MyApp::launch() {
     bool gameInitialized = false;
     sf::Clock gameTimer;
     bool gameEnded = true;
-    EndScreen endScreen(game.getScore());
+    EndScreen endScreen;
 
     while (window.isOpen()) {
         while (auto event = window.pollEvent()) {
@@ -28,6 +28,7 @@ void MyApp::launch() {
 
                 if (title_screen.isStartClicked()) {
                     title_screen.setActive(false);
+                    game.reset();
                     gameInitialized = false;
                     gameEnded = false;
                     gameTimer.restart();
@@ -38,6 +39,7 @@ void MyApp::launch() {
 
                 if (endScreen.isRestartClicked()) {
                     endScreen.setActive(false);
+                    game.reset();
                     gameInitialized = false;
                     gameEnded = false;
                     gameTimer.restart();
@@ -88,6 +90,7 @@ void MyApp::launch() {
 
             if (gameTimer.getElapsedTime().asSeconds() >= 30.0f && !gameEnded) {
                 gameEnded = true;
+                endScreen.updateScore(game.getScoreValue());
                 endScreen.setActive(true);
             }
 

@@ -97,7 +97,7 @@ void Game::removeDeadCorns() {
   corns.end());
 }
 
-sf::Text Game::getScore() const {
+ sf::Text Game::getScore() {
   return scoreText;
 }
 
@@ -201,4 +201,16 @@ void Game::loadGame(const std::string& filename) {
   } catch (const std::exception& e) {
     std::cerr << "Error loading game: " << e.what() << std::endl;
   }
+}
+
+void Game::reset() {
+  score = 0;
+  updateScoreDisplay();
+  corns.clear();
+  framesSinceLastSpawn = 0;
+  spawnedCornsCount = 0;
+}
+
+int Game::getScoreValue() const {
+  return score;
 }

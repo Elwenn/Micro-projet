@@ -7,14 +7,16 @@
 class EndScreen : public Scene {
 private:
     bool active;
-    sf::Text scoreText;
+    sf::Text endscoreText;
     Button restartButton;
     bool restartClicked;
     Button TitleButton;
     bool TitleClicked;
+    sf::Font font;
 
 public:
-    EndScreen(sf::Text scoretext);
+    EndScreen();
+    void updateScore(int score);
     void draw(sf::RenderWindow& window);
     bool isActive() const;
     void setActive(bool active);
