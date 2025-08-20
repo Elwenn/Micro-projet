@@ -19,8 +19,10 @@ private:
   const int nb_y;
   Scene background;
   Grid grid;
-  float spawnTimer;
-  float spawnInterval;
+  int minCornsOnScreen;
+  int maxCornsOnScreen;
+  int framesSinceLastSpawn;
+  int spawnCooldownFrames;
   int maxConcurrentCorns;
   int initialCornsCount;
   int spawnedCornsCount;

@@ -16,8 +16,10 @@ Game::Game(const int nb_x, const int nb_y) :
   font{ sf::Font("res/arial.ttf") },
   scoreText{ sf::Text(font) },
   background{ Scene("Back-ground5x5.png") },
-  spawnTimer(0.0f),
-  spawnInterval(1.5f),
+minCornsOnScreen(5),
+ maxCornsOnScreen(10),
+ framesSinceLastSpawn(0),
+ spawnCooldownFrames(30),
   maxConcurrentCorns(10),
   initialCornsCount(50),
   spawnedCornsCount(0),
@@ -39,12 +41,11 @@ void Game::initCorns(int count, const sf::RenderWindow& window) {
 
   initialCornsCount = count;
   spawnedCornsCount = 0;
+  for (int i =0; i < std::min(count,maxConcurrentCorns); i++) {
+    spawnCorn();
+  }
 }
 void Game::spawnCorn() {
-  if (corns.size() >= maxConcurrentCorns || spawnedCornsCount >= initialCornsCount) {
-    return;
-  }
-
   sf::Vector2f position = grid.getRandomCellPosition();
   float radius = grid.getRadius();
 
@@ -88,7 +89,7 @@ std::vector<std::unique_ptr<Corn>>* Game::getCorns() {
 }
 
 void Game::addCorn(std::unique_ptr<Corn> corn) {
-  if (corns.size() < MAX_CORNS) {
+  if (corns.size() < maxCornsOnScreen) {
     corns.push_back(std::move(corn));
   }
 }
@@ -120,14 +121,24 @@ void Game::update() {
   }
   removeDeadCorns();
 
-  spawnTimer+=1.0f /30.0f;
-  if (spawnTimer >= spawnInterval) {
-    spawnTimer =0.0f;
+  framesSinceLastSpawn++;
+
+  if (corns.size() < minCornsOnScreen && framesSinceLastSpawn >= spawnCooldownFrames) {
     spawnCorn();
+    framesSinceLastSpawn = 0;
   }
 
-  if (corns.empty() && spawnedCornsCount >= initialCornsCount) {
+  else if (corns.size() < maxCornsOnScreen && framesSinceLastSpawn >= spawnCooldownFrames * 2) {
+    spawnCorn();
+    framesSinceLastSpawn = 0;
+  }
+
+  if (corns.empty()) {
     spawnedCornsCount = 0;
+
+    for (int i = 0; i < minCornsOnScreen; i++) {
+      spawnCorn();
+    }
   }
 }
 
