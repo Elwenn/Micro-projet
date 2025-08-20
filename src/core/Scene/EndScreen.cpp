@@ -3,14 +3,17 @@
 #include "../TextureManager.h"
 
 EndScreen::EndScreen(sf::Text scoretext) :
-Scene("Title_screen.png"),
-active(true),
+Scene("End_screen.png"),
+active(false),
 scoreText(scoretext),
 restartButton("Re-Start Game", sf::Vector2f(400, 500), sf::Vector2f(200, 50)),
 restartClicked(false),
 TitleButton("Title Screen", sf::Vector2f(400, 400), sf::Vector2f(200, 50)),
 TitleClicked(false)
 {
+    sf::FloatRect textRect = scoreText.getLocalBounds();
+    scoreText.setOrigin(textRect.getCenter());
+    scoreText.setPosition(sf::Vector2f(500, 300));
     restartButton.setOnClick([this]() {
         this->restartClicked = true;
     });
@@ -31,7 +34,7 @@ bool EndScreen::isActive() const {
     return active;
 }
 
-void EndScreen::setActive(bool active) {
+void EndScreen::setActive(const bool active) {
     this->active = active;
 }
 

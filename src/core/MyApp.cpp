@@ -27,7 +27,6 @@ void MyApp::launch() {
                 title_screen.handleEvent(event, window);
 
                 if (title_screen.isStartClicked()) {
-                    endScreen.setActive(false);
                     title_screen.setActive(false);
                     gameInitialized = false;
                     gameEnded = false;
