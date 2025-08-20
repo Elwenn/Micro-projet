@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Game {
+    + double score
+}
+
+abstract class Clickable{
+    - int x
+    - int y 
+    - Image
+    - Shape collision
+    + void act()
+}
+
+Game -- Clickable
+
+class Button {
+}
+
+Clickable <|-- Button
+
+abstract class Sprite {
+    - int pv
+    - int xp
+    - Time countDown
+    + void getHit(...)
+    + virtual void die(...)
+    + virtual string draw(...)
+}
+
+Clickable <|-- Sprite
+
+class Friend {
+    + Friend(...)
+    + void assist(...)
+}
+Sprite <|-- Friend
+
+class Enemy {
+    + Enemy(...)
+    + void attack(...)
+}
+Sprite <|-- Enemy
+
+
+
+
+class <abstract> Scene{
+    - Image background
+    - Clickable Collection props
+}
+
+Game -- Scene
+
+@enduml
