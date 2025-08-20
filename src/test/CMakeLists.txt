@@ -10,6 +10,7 @@ add_executable(unitTests
         ../core/TextureManager.cpp
         ../core/Grid.h
         ../core/Grid.cpp
+        ../core/Scene/EndScreen.h
 )
 target_link_libraries(unitTests GTest::gtest_main lib_core pugixml sfml-graphics nlohmann_json::nlohmann_json)
 

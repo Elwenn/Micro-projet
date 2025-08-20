@@ -30,7 +30,7 @@ public:
     );
   }
 
-  bool contains(sf::Vector2f point) const {
+  virtual bool contains(sf::Vector2f point) const {
     return collisionShape.getGlobalBounds().contains(point);
   }
 

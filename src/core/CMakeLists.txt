@@ -5,6 +5,10 @@ add_library(lib_core
         TextureManager.h
         TextureManager.cpp
         Grid.h
-        Grid.cpp)
+        Grid.cpp
+        Scene/TitleScreen.h
+        Scene/TitleScreen.cpp
+        Scene/EndScreen.h
+        Scene/EndScreen.cpp)
 target_include_directories(lib_core PUBLIC ./)
 target_link_libraries(lib_core PUBLIC pugixml sfml-graphics sfml-window sfml-system nlohmann_json::nlohmann_json)

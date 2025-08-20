@@ -74,8 +74,7 @@ void Game::updateScoreDisplay() {
   scoreText.setString("Score: " + std::to_string(score));
 }
 
-void Game::draw(sf::RenderWindow& window) const {
-  //background.display(&window);
+void Game::drawScore(sf::RenderWindow& window) const {
   window.draw(scoreText);
 }
 
@@ -98,8 +97,8 @@ void Game::removeDeadCorns() {
   corns.end());
 }
 
-int Game::getScore() const {
-  return score;
+sf::Text Game::getScore() const {
+  return scoreText;
 }
 
 void Game::processEvents(sf::Vector2f mousePos) {

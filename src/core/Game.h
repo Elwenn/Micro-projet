@@ -28,8 +28,9 @@ public:
   Game();
   void addScore(int points);
   void updateScoreDisplay();
-  void draw(sf::RenderWindow& window) const;
-  int getScore() const;
+  void drawScore(sf::RenderWindow& window) const;
+
+  sf::Text getScore() const;
 
   std::vector<std::unique_ptr<Corn>>* getCorns();
   void addCorn(std::unique_ptr<Corn> corn);

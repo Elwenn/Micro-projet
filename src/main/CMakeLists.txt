@@ -4,6 +4,7 @@ add_executable(main
         ../core/TextureManager.cpp
         ../core/Grid.h
         ../core/Grid.cpp
+        ../core/Scene/EndScreen.h
 )
 
 target_link_libraries(main PUBLIC lib_core pugixml sfml-graphics sfml-window sfml-system nlohmann_json::nlohmann_json)
