@@ -95,20 +95,6 @@ void Corn::fromJson(const nlohmann::json& j) {
     sprite.setScale(sf::Vector2f(scaleX, scaleY));
 }
 
-int Corn::getPV() const {
-    return pv;
-}
-
-int Corn::getScoreValue() const {
-    return scoreValue;
-}
-
-void Corn::takeDamage(int damage) {
-    pv -= damage;
-    if (pv <= 0) {
-        alive = false;
-    }
-}
 
 bool Corn::contains(sf::Vector2f point) const {
 
@@ -117,8 +103,4 @@ bool Corn::contains(sf::Vector2f point) const {
     float dx = point.x - centerX;
     float dy = point.y - centerY;
     return (dx * dx + dy * dy) <= (radius * radius);
-}
-
-const sf::Sprite* Corn::getShape() const {
-    return &sprite;
 }

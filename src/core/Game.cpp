@@ -7,12 +7,10 @@
 #include <fstream>
 
 #include "corn/Enemy.h"
-#include "corn/PopCorn.h"
+#include "corn/Friend.h"
 
-Game::Game(const int nb_x, const int nb_y) :
+Game::Game() :
   score{0},
-  nb_x{ nb_x },
-  nb_y{ nb_y },
   font{ sf::Font("res/arial.ttf") },
   scoreText{ sf::Text(font) },
   background{ Scene("Back-ground5x5.png") },
@@ -58,9 +56,6 @@ void Game::spawnCorn() {
       break;
     case 1: // Friend
       corn = std::make_unique<Friend>(position.x, position.y, radius, "res/friend.png");
-      break;
-    case 2: // PopCorn
-      corn = std::make_unique<PopCorn>(position.x, position.y, radius, "res/pop-corn.png", 200.0f);
       break;
   }
 
@@ -197,8 +192,6 @@ void Game::loadGame(const std::string& filename) {
         corn = std::make_unique<Friend>(0, 0, 20.f,"res/friend.png");
       } else if (type == "Enemy") {
         corn = std::make_unique<Enemy>(0, 0, 20.f, "/res/enemy.png");
-      } else if (type == "PopCorn") {
-        corn = std::make_unique<PopCorn>(0, 0, 20.f, "/res/pop-corn.png");
       } else {
         corn = std::make_unique<Corn>(0, 0, 20.F, "");
       }
@@ -210,64 +203,3 @@ void Game::loadGame(const std::string& filename) {
     std::cerr << "Error loading game: " << e.what() << std::endl;
   }
 }
-
-
-//TODO : Initialize the corns
-
-/*
-void Game::run() {
-
-  
-  sf::Clock clock;
-  sf::Time timeSinceLastUpdate = sf::Time::Zero;
-  while (mWindow.isOpen()) {
-    sf::Time elapsedTime = clock.restart();
-    timeSinceLastUpdate += elapsedTime;
-    while (timeSinceLastUpdate > TimePerFrame) {
-      timeSinceLastUpdate -= TimePerFrame;
-
-      processEvents();
-      update(TimePerFrame);
-    }
-
-    updateStatistics(elapsedTime);
-    render();
-  }
-  
-
-}
-
-void Game::processEvents() {
-
-  
-  while (const std::optional event = mWindow.pollEvent()) {
-    if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-      mTarget.handlePlayerInput(keyPressed->code, true);
-    }
-    else if (const auto* keyReleased =
-      event->getIf<sf::Event::KeyReleased>()) {
-      mTarget.handlePlayerInput(keyReleased->code, false);
-    }
-    else if (event->is<sf::Event::Closed>()) {
-      mWindow.close();
-    }
-  }
-
-  
-}
-
-void Game::update(const sf::Time elapsedTime) { 
-  
-  mTarget.update(elapsedTime);
-  
-  }
-
-void Game::render() {
-  
-  mWindow.clear();
-  mTarget.drawCurrent(mWindow);
-  mWindow.draw(mStatisticsText);
-  mWindow.display();
-  
-}
-*/

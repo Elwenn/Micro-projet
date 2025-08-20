@@ -10,13 +10,10 @@
 
 class Game {
 private:
-  const int MAX_CORNS = 50;
   int score;
   sf::Text scoreText;
   sf::Font font;
   std::vector<std::unique_ptr<Corn>> corns;
-  const int nb_x;
-  const int nb_y;
   Scene background;
   Grid grid;
   int minCornsOnScreen;
@@ -28,7 +25,7 @@ private:
   int spawnedCornsCount;
 
 public:
-  Game(int nb_x = 10, int nb_y = 10);
+  Game();
   void addScore(int points);
   void updateScoreDisplay();
   void draw(sf::RenderWindow& window) const;

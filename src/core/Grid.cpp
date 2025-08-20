@@ -25,13 +25,6 @@ void Grid::calculatePosition() {
     }
 }
 
-void Grid::calculatePosition(const sf::RenderWindow& window) {
-    Scene background("Back-ground5x5.png");
-    background.calculatePosition(window);
-
-    position = background.getPosition();
-}
-
 sf::Vector2f Grid::getRandomCellPosition() const {
     int row = std::rand() % rows;
     int col = std::rand() % cols;

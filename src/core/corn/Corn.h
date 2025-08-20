@@ -25,15 +25,9 @@ public:
     void act();
     void draw(sf::RenderWindow& window) const;
     void die(Game& game);
-
     bool isAlive() const;
-    int getPV() const;
-    int getScoreValue() const;
-    void takeDamage(int damage);
 
     bool contains(sf::Vector2f point) const ;
-
-    const sf::Sprite* getShape() const;
 
     virtual nlohmann::json toJson() const ;
     virtual void fromJson(const nlohmann::json& j);

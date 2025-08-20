@@ -14,5 +14,5 @@ public:
   void display(sf::RenderWindow* window);
   void calculatePosition(const sf::RenderWindow& window);
   sf::Vector2f getPosition() const { return position; }
-  sf::Vector2u getTextureSize() const { return textureSize; }
+
 };

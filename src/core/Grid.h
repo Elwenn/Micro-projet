@@ -21,7 +21,6 @@ public:
     Grid(int rows = 5, int cols = 5);
     void setBackgroundScene(const Scene* scene);
     void calculatePosition();
-    void calculatePosition(const sf::RenderWindow& window);
     sf::Vector2f getRandomCellPosition() const;
     float getRadius() const;
 };
