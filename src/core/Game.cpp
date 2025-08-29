@@ -137,7 +137,6 @@ void Game::update() {
 }
 
 void Game::render(sf::RenderWindow& window) {
-  window.clear();
   background.display(&window);
 
   // Dessiner tous les corns
@@ -146,7 +145,6 @@ void Game::render(sf::RenderWindow& window) {
   }
 
   window.draw(scoreText);
-  window.display();
 }
 
 void Game::saveGame(const std::string& filename) {

@@ -9,7 +9,7 @@ sf::Texture& TextureManager::getTexture(const std::string& path) {
         if (!texture.loadFromFile(path)) {
             // Fallback texture
             sf::Image fallback({50, 50}, sf::Color::Magenta);
-            texture.loadFromImage(fallback);
+            assert(texture.loadFromImage(fallback));
         }
         textures[path] = texture;
         return textures[path];
