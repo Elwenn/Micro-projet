@@ -8,13 +8,12 @@
 MyApp::MyApp() {
     window.create(sf::VideoMode({win_length, win_width}), "Corn War !!!");
     window.setFramerateLimit(30);
+    gameStatus = GameStatus::TitleScreen;
 }
 
 void MyApp::launch() {
     auto game = Game();
-    bool gameInitialized = false;
     sf::Clock gameTimer;
-    bool gameEnded = true;
     EndScreen endScreen;
 
     while (window.isOpen()) {
@@ -23,30 +22,25 @@ void MyApp::launch() {
                 window.close();
             }
 
-            if (title_screen.isActive()) {
+            if (gameStatus == GameStatus::TitleScreen) {
                 title_screen.handleEvent(event, window);
 
                 if (title_screen.isStartClicked()) {
-                    title_screen.setActive(false);
-                    game.reset();
-                    gameInitialized = false;
-                    gameEnded = false;
+                    gameStatus = GameStatus::GameScreen;
+                    game.reset(window);
                     gameTimer.restart();
                     title_screen.resetStartClicked();
                 }
-             } else if (endScreen.isActive()) {
+             } else if (gameStatus == GameStatus::EndScreen) {
                 endScreen.handleEvent(event, window);
 
                 if (endScreen.isRestartClicked()) {
-                    endScreen.setActive(false);
-                    game.reset();
-                    gameInitialized = false;
-                    gameEnded = false;
+                    gameStatus = GameStatus::GameScreen;
+                    game.reset(window);
                     gameTimer.restart();
                     endScreen.resetRestartClicked();
                 } else if (endScreen.isTitleClicked()) {
-                    endScreen.setActive(false);
-                    title_screen.setActive(true);
+                    gameStatus = GameStatus::TitleScreen;
                     endScreen.resetTitleClicked();
                 }
             } else {
@@ -54,7 +48,6 @@ void MyApp::launch() {
                     auto resized = event->getIf<sf::Event::Resized>();
                     sf::FloatRect visibleArea({0.f, 0.f}, sf::Vector2f(resized->size));
                     window.setView(sf::View(visibleArea));
-                    game.initCorns(0, window);
                 }
 
                 if (event->is<sf::Event::MouseButtonPressed>()) {
@@ -78,23 +71,17 @@ void MyApp::launch() {
 
         window.clear();
 
-        if (title_screen.isActive()) {
+        if (gameStatus == GameStatus::TitleScreen) {
             title_screen.draw(window);
-        } else if (endScreen.isActive()) {
+        } else if (gameStatus == GameStatus::EndScreen) {
             endScreen.draw(window);
-        } else {
-            if (!gameInitialized) {
-                game.initCorns(50, window);
-                gameInitialized = true;
-            }
+        } else if (gameStatus == GameStatus::GameScreen) {
 
-            if (gameTimer.getElapsedTime().asSeconds() >= 30.0f && !gameEnded) {
-                gameEnded = true;
+
+            if (gameTimer.getElapsedTime().asSeconds() >= 30.0f ) {
                 endScreen.updateScore(game.getScoreValue());
-                endScreen.setActive(true);
-            }
-
-            if (!gameEnded) {
+                gameStatus = GameStatus::EndScreen;
+            } else {
                 game.update();
                 game.render(window);
             }

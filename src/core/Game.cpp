@@ -20,7 +20,6 @@ minCornsOnScreen(5),
  spawnCooldownFrames(30),
   maxConcurrentCorns(10),
   initialCornsCount(50),
-  spawnedCornsCount(0),
   grid()
 
 {
@@ -33,16 +32,6 @@ minCornsOnScreen(5),
   std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
-void Game::initCorns(int count, const sf::RenderWindow& window) {
-  background.calculatePosition(window);
-  grid.calculatePosition();
-
-  initialCornsCount = count;
-  spawnedCornsCount = 0;
-  for (int i =0; i < std::min(count,maxConcurrentCorns); i++) {
-    spawnCorn();
-  }
-}
 void Game::spawnCorn() {
   sf::Vector2f position = grid.getRandomCellPosition();
   float radius = grid.getRadius();
@@ -61,7 +50,6 @@ void Game::spawnCorn() {
 
   if (corn) {
     addCorn(std::move(corn));
-    spawnedCornsCount++;
   }
 }
 
@@ -128,8 +116,6 @@ void Game::update() {
   }
 
   if (corns.empty()) {
-    spawnedCornsCount = 0;
-
     for (int i = 0; i < minCornsOnScreen; i++) {
       spawnCorn();
     }
@@ -201,12 +187,16 @@ void Game::loadGame(const std::string& filename) {
   }
 }
 
-void Game::reset() {
+void Game::reset(const sf::RenderWindow& window) {
   score = 0;
   updateScoreDisplay();
   corns.clear();
   framesSinceLastSpawn = 0;
-  spawnedCornsCount = 0;
+  background.calculatePosition(window);
+  grid.calculatePosition();
+  for (int i = 0; i < initialCornsCount; i++) {
+    spawnCorn();
+  }
 }
 
 int Game::getScoreValue() const {

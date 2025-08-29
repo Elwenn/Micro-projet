@@ -4,7 +4,6 @@
 
 EndScreen::EndScreen() :
 Scene("End_screen.png"),
-active(false),
 font{ sf::Font("res/arial.ttf") },
 endscoreText{ sf::Text(font) },
 restartButton("Re-Start Game", sf::Vector2f(400, 500), sf::Vector2f(200, 50)),
@@ -38,24 +37,15 @@ void EndScreen::updateScore(int score) {
 }
 
 void EndScreen::draw(sf::RenderWindow& window) {
-    if (!active) return;
     Scene::display(&window);
     restartButton.draw(window);
     TitleButton.draw(window);
     window.draw(endscoreText);
 
 }
-bool EndScreen::isActive() const {
-    return active;
-}
 
-void EndScreen::setActive(const bool active) {
-    this->active = active;
-}
 
 void EndScreen::handleEvent(const std::optional<sf::Event>& event, sf::RenderWindow& window) {
-    if (!active) return;
-
     restartButton.handleEvent(event, window);
     TitleButton.handleEvent(event, window);
 }

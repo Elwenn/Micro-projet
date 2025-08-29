@@ -22,7 +22,6 @@ private:
   int spawnCooldownFrames;
   int maxConcurrentCorns;
   int initialCornsCount;
-  int spawnedCornsCount;
 
 public:
   Game();
@@ -50,7 +49,7 @@ public:
 
   void spawnCorn();
 
-  void reset();
+  void reset(const sf::RenderWindow& window);
   int getScoreValue() const;
 };
   
