@@ -12,7 +12,7 @@ MyApp::MyApp() {
 }
 
 void MyApp::launch() {
-    auto game = Game();
+    std::unique_ptr<Game> game =nullptr;
     sf::Clock gameTimer;
     EndScreen endScreen;
 
@@ -27,7 +27,7 @@ void MyApp::launch() {
 
                 if (title_screen.isStartClicked()) {
                     gameStatus = GameStatus::GameScreen;
-                    game.reset(window);
+                    game = std::make_unique<Game>(window);
                     gameTimer.restart();
                     title_screen.resetStartClicked();
                 }
@@ -36,7 +36,7 @@ void MyApp::launch() {
 
                 if (endScreen.isRestartClicked()) {
                     gameStatus = GameStatus::GameScreen;
-                    game.reset(window);
+                    game = std::make_unique<Game>(window);
                     gameTimer.restart();
                     endScreen.resetRestartClicked();
                 } else if (endScreen.isTitleClicked()) {
@@ -54,16 +54,16 @@ void MyApp::launch() {
                     auto pressed = event->getIf<sf::Event::MouseButtonPressed>();
                     if (pressed->button == sf::Mouse::Button::Left) {
                         sf::Vector2f mousePos = window.mapPixelToCoords(pressed->position);
-                        game.processEvents(mousePos);
+                        game->processEvents(mousePos);
                     }
                 }
 
                 if (event->is<sf::Event::KeyPressed>()) {
                     auto keyEvent = event->getIf<sf::Event::KeyPressed>();
                     if (keyEvent->code == sf::Keyboard::Key::S) {
-                        game.saveGame("savegame.json");
+                        game->saveGame("savegame.json");
                     } else if (keyEvent->code == sf::Keyboard::Key::L) {
-                        game.loadGame("savegame.json");
+                        game->loadGame("savegame.json");
                     }
                 }
             }
@@ -79,11 +79,11 @@ void MyApp::launch() {
 
 
             if (gameTimer.getElapsedTime().asSeconds() >= 30.0f ) {
-                endScreen.updateScore(game.getScoreValue());
+                endScreen.updateScore(game->getScoreValue());
                 gameStatus = GameStatus::EndScreen;
             } else {
-                game.update();
-                game.render(window);
+                game->update();
+                game->render(window);
             }
         }
 

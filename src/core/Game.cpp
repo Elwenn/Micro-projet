@@ -9,7 +9,7 @@
 #include "corn/Enemy.h"
 #include "corn/Friend.h"
 
-Game::Game() :
+Game::Game(const sf::RenderWindow& window) :
   score{0},
   font{ sf::Font("res/arial.ttf") },
   scoreText{ sf::Text(font) },
@@ -30,6 +30,12 @@ minCornsOnScreen(5),
   updateScoreDisplay();
   grid.setBackgroundScene(&background);
   std::srand(static_cast<unsigned>(std::time(nullptr)));
+  background.calculatePosition(window);
+  grid.calculatePosition();
+
+  for (int i = 0; i < std::min(initialCornsCount, maxConcurrentCorns); i++) {
+    spawnCorn();
+  }
 }
 
 void Game::spawnCorn() {
@@ -66,9 +72,6 @@ void Game::drawScore(sf::RenderWindow& window) const {
   window.draw(scoreText);
 }
 
-std::vector<std::unique_ptr<Corn>>* Game::getCorns() {
-  return &corns;
-}
 
 void Game::addCorn(std::unique_ptr<Corn> corn) {
   if (corns.size() < maxCornsOnScreen) {
@@ -184,18 +187,6 @@ void Game::loadGame(const std::string& filename) {
     }
   } catch (const std::exception& e) {
     std::cerr << "Error loading game: " << e.what() << std::endl;
-  }
-}
-
-void Game::reset(const sf::RenderWindow& window) {
-  score = 0;
-  updateScoreDisplay();
-  corns.clear();
-  framesSinceLastSpawn = 0;
-  background.calculatePosition(window);
-  grid.calculatePosition();
-  for (int i = 0; i < initialCornsCount; i++) {
-    spawnCorn();
   }
 }
 

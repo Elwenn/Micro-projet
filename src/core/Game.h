@@ -24,32 +24,19 @@ private:
   int initialCornsCount;
 
 public:
-  Game();
+  Game(const sf::RenderWindow& window);
   void addScore(int points);
   void updateScoreDisplay();
   void drawScore(sf::RenderWindow& window) const;
-
-    sf::Text getScore();
-
-  std::vector<std::unique_ptr<Corn>>* getCorns();
+  sf::Text getScore();
   void addCorn(std::unique_ptr<Corn> corn);
   void removeDeadCorns();
-
   void processEvents(sf::Vector2f mousePos);
-
   void update();
-
   void render(sf::RenderWindow& window);
-
   void saveGame(const std::string &filename);
-
   void loadGame(const std::string &filename);
-
-  void initCorns(int count, const sf::RenderWindow& window);
-
   void spawnCorn();
-
-  void reset(const sf::RenderWindow& window);
   int getScoreValue() const;
 };
   
