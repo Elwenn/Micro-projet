@@ -8,4 +8,5 @@ public:
            const std::string& img ="friend.png",
            int pv = 2,
            int scoreValue = -15);
+    void die(Game& game);
 };

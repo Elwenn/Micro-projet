@@ -29,7 +29,7 @@ public:
   void updateScoreDisplay();
   void drawScore(sf::RenderWindow& window) const;
   sf::Text getScore();
-  void addCorn(std::unique_ptr<Corn> corn);
+  void addCorn(std::unique_ptr<Corn> corn,bool force);
   void removeDeadCorns();
   void processEvents(sf::Vector2f mousePos);
   void update();
@@ -38,6 +38,7 @@ public:
   void loadGame(const std::string &filename);
   void spawnCorn();
   int getScoreValue() const;
+  const Grid& getGrid() const;
 };
   
 

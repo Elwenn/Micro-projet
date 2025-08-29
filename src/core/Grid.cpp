@@ -13,10 +13,14 @@ Grid::Grid(int rows, int cols) :
 backgroundScene(nullptr)
 {
     position = sf::Vector2f(0, 0);
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
 }
 
 void Grid::setBackgroundScene(const Scene* scene) {
     backgroundScene = scene;
+    if (backgroundScene) {
+        calculatePosition();
+    }
 }
 
 void Grid::calculatePosition() {
@@ -28,6 +32,13 @@ void Grid::calculatePosition() {
 sf::Vector2f Grid::getRandomCellPosition() const {
     int row = std::rand() % rows;
     int col = std::rand() % cols;
+    return getCellPosition(row, col);
+}
+
+sf::Vector2f Grid::getCellPosition(int row, int col) const {
+
+    row = std::max(0, std::min(rows - 1, row));
+    col = std::max(0, std::min(cols - 1, col));
 
     float x = position.x + gridOriginX + col * step;
     float y = position.y + gridOriginY + row * step;
@@ -35,6 +46,15 @@ sf::Vector2f Grid::getRandomCellPosition() const {
     return sf::Vector2f(x, y);
 }
 
+
 float Grid::getRadius() const {
     return radius;
+}
+
+int Grid::getRows() const {
+    return rows;
+}
+
+int Grid::getCols() const{
+    return cols;
 }

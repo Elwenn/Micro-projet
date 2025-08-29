@@ -55,7 +55,7 @@ void Game::spawnCorn() {
   }
 
   if (corn) {
-    addCorn(std::move(corn));
+    addCorn(std::move(corn),false);
   }
 }
 
@@ -73,8 +73,8 @@ void Game::drawScore(sf::RenderWindow& window) const {
 }
 
 
-void Game::addCorn(std::unique_ptr<Corn> corn) {
-  if (corns.size() < maxCornsOnScreen) {
+void Game::addCorn(std::unique_ptr<Corn> corn, bool force) {
+  if (force || corns.size() < maxCornsOnScreen) {
     corns.push_back(std::move(corn));
   }
 }
@@ -192,4 +192,8 @@ void Game::loadGame(const std::string& filename) {
 
 int Game::getScoreValue() const {
   return score;
+}
+
+const Grid& Game::getGrid() const {
+  return grid;
 }

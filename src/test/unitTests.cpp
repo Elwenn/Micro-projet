@@ -3,7 +3,6 @@
 #include "MyApp.h"
 #include "corn/Enemy.h"
 #include "corn/Friend.h"
-#include "corn/PopCorn.h"
 #include "Game.h"
 
 class TestCorn : public ::testing::Test {
@@ -11,11 +10,9 @@ protected:
   Game testgame;
 
   void SetUp() override {
-    // Code à exécuter avant chaque test
   }
 
   void TearDown() override {
-    // Code à exécuter après chaque test
   }
 };
 

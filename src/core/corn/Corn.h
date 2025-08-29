@@ -24,7 +24,7 @@ public:
     void getHit(Game &game);
     void act();
     void draw(sf::RenderWindow& window) const;
-    void die(Game& game);
+    virtual void die(Game& game);
     bool isAlive() const;
 
     bool contains(sf::Vector2f point) const ;

@@ -23,4 +23,7 @@ public:
     void calculatePosition();
     sf::Vector2f getRandomCellPosition() const;
     float getRadius() const;
+    sf::Vector2f getCellPosition(int row, int col) const;
+    int getRows() const;
+    int getCols() const;
 };
