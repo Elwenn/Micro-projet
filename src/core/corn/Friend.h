@@ -7,6 +7,6 @@ public:
            float radius,
            const std::string& img ="friend.png",
            int pv = 2,
-           int scoreValue = -15);
+           int scoreValue = -10);
     void die(Game& game);
 };

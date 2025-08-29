@@ -57,6 +57,10 @@ void Corn::draw(sf::RenderWindow& window) const {
     }
 }
 bool Corn::isAlive() const { return alive; }
+int Corn::getPV() const {
+    return pv;
+}
+
 
 nlohmann::json Corn::toJson() const {
     return {

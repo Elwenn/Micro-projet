@@ -7,7 +7,14 @@
 
 class TestCorn : public ::testing::Test {
 protected:
+  sf::RenderWindow window;
   Game testgame;
+
+  TestCorn()
+    : window(sf::VideoMode({800, 600}), "Test Window"),
+      testgame(window)
+  {
+  }
 
   void SetUp() override {
   }
@@ -18,23 +25,20 @@ protected:
 
 // Friend Group Test
 TEST_F(TestCorn, TestHitCorn) {
-
-  auto ptr = std::make_unique<sf::RectangleShape>(sf::Vector2f(100, 100));
-  Enemy myEnemy(0, 0, std::move(ptr));
+  Friend myFriend(0, 0, 60);
   
-  printf("PV: %d\n", myEnemy.getPV());
-  myEnemy.getHit(testgame);
-  printf("PV: %d\n", myEnemy.getPV());
+  printf("PV: %d\n", myFriend.getPV());
+  myFriend.getHit(testgame);
+  printf("PV: %d\n", myFriend.getPV());
 
-  EXPECT_EQ(myEnemy.isAlive(), true);
-  EXPECT_EQ(myEnemy.getPV(), 3);
+  EXPECT_EQ(myFriend.isAlive(), true);
+  EXPECT_EQ(myFriend.getPV(), 1);
   
 }
 
 
 TEST_F(TestCorn, TestKillCorn) {
-  auto ptr = std::make_unique<sf::RectangleShape>(sf::Vector2f(100, 100));
-  Friend myFriend(0, 0, std::move(ptr));
+  Friend myFriend(0, 0, 60);
 
   myFriend.getHit(testgame);
   myFriend.getHit(testgame);
@@ -43,13 +47,3 @@ TEST_F(TestCorn, TestKillCorn) {
 
 }
 
-TEST_F(TestCorn, TestKillPopCorn) {
-  auto ptr = std::make_unique<sf::RectangleShape>(sf::Vector2f(100, 100));
-  Friend myPopCorn(0, 0, std::move(ptr));
-
-  myPopCorn.getHit(testgame);
-  myPopCorn.getHit(testgame);
-
-  EXPECT_EQ(myPopCorn.isAlive(), false);
-
-}

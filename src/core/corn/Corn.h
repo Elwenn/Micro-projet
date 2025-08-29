@@ -26,9 +26,8 @@ public:
     void draw(sf::RenderWindow& window) const;
     virtual void die(Game& game);
     bool isAlive() const;
-
     bool contains(sf::Vector2f point) const ;
-
+    int getPV() const;
     virtual nlohmann::json toJson() const ;
     virtual void fromJson(const nlohmann::json& j);
 };

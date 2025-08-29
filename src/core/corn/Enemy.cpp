@@ -7,5 +7,5 @@ Enemy::Enemy(double x, double y,
   int pv,
   int scoreValue) :
   Corn(x, y, radius, img, pv, scoreValue) {
-    countDown = 15 + (std::rand() % 76);
+    countDown = 20 + (std::rand() % 76);
 }
