@@ -93,9 +93,15 @@ void Game::removeDeadCorns() {
 }
 
 void Game::processEvents(sf::Vector2f mousePos) {
-  for (auto& corn : corns) {
-    if (corn->isAlive() && corn->contains(mousePos)) {
-      corn->getHit(*this);
+  std::vector<size_t> indicesToProcess;
+  for (size_t i = 0; i < corns.size(); i++) {
+    if (corns[i]->isAlive() && corns[i]->contains(mousePos)) {
+      indicesToProcess.push_back(i);
+    }
+  }
+  for (size_t index : indicesToProcess) {
+    if (index < corns.size() && corns[index]->isAlive()) {
+      corns[index]->getHit(*this);
     }
   }
 }
