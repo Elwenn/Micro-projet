@@ -78,7 +78,7 @@ void MyApp::launch() {
         } else if (gameStatus == GameStatus::GameScreen) {
 
 
-            if (gameTimer.getElapsedTime().asSeconds() >= 30.0f ) {
+            if (gameTimer.getElapsedTime().asSeconds() >= 300.0f ) {
                 endScreen.updateScore(game->getScoreValue());
                 gameStatus = GameStatus::EndScreen;
             } else {
