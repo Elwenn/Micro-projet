@@ -16,4 +16,4 @@ Pour démarrer le jeu il suffit de cliquer avec la souris sur le bouton start su
 Le Jeu s'arrête tout seul et peut être redémarrer sur le menu de fin en appuyant sur le bouton "re-start"
 
 # Génération du code
-On se base sur la procédure "Construire un projet en C++ avec Cmake" créer par M.Simatic et publié le 21 mai 2025.
+On se base sur la procédure ["Construire un projet en C++ avec Cmake"](https://www-inf.telecom-sudparis.eu/COURS/CSC4526/new_site/Supports/Documents/OutilsCSC4526/outilsCSC4526.html#construire-un-projet-c-avec-cmake) créé par M.Simatic et publié le 21 mai 2025
